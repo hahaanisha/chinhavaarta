@@ -1,3 +1,6 @@
+import 'package:chinhavaarta/screens/DictionaryPPTPage.dart';
+import 'package:chinhavaarta/screens/LangChangePage.dart';
+import 'package:chinhavaarta/screens/dictionaty.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,6 +20,14 @@ class ChinhvartaApp extends StatelessWidget {
 class ChinhvartaHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Adjust layout based on screen width
+    bool isDesktop = screenWidth > 900;
+    int gridCrossAxisCount = isDesktop ? 4 : 2;
+    double gridChildAspectRatio = isDesktop ? 2 : 3 / 2;
+    double padding = isDesktop ? 40 : 20;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -28,7 +39,7 @@ class ChinhvartaHomePage extends StatelessWidget {
               'Chinhvarta',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 20,
+                fontSize: isDesktop ? 28 : 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -38,7 +49,7 @@ class ChinhvartaHomePage extends StatelessWidget {
                 SizedBox(width: 10),
                 Icon(Icons.search, color: Colors.black),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -48,7 +59,7 @@ class ChinhvartaHomePage extends StatelessWidget {
           children: [
             // Banner Section
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(padding),
               color: Colors.blue,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +68,7 @@ class ChinhvartaHomePage extends StatelessWidget {
                     'Hello, Tejas!',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
+                      fontSize: isDesktop ? 32 : 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -66,70 +77,80 @@ class ChinhvartaHomePage extends StatelessWidget {
                     'Welcome to Chinhvarta: Your Gateway to Seamless Communication Through Sign Language. Explore, Connect, and Empower!',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: isDesktop ? 20 : 16,
                     ),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white, // Replaces 'primary'
-                      foregroundColor: Colors.blue, // Replaces 'onPrimary'
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: Text('Learn More'),
+                    child: Text(
+                      'Learn More',
+                      style: TextStyle(fontSize: isDesktop ? 18 : 16),
+                    ),
                   ),
-
                 ],
               ),
             ),
 
             // Explore Section
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(padding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Explore Chinhvarta',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: isDesktop ? 24 : 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 10),
                   Text(
                     'An inclusive community built for you',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: isDesktop ? 18 : 16),
                   ),
                   SizedBox(height: 20),
                   GridView(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 3 / 2,
+                      crossAxisCount: gridCrossAxisCount,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      childAspectRatio: gridChildAspectRatio,
                     ),
                     children: [
                       _buildFeatureCard(
+                        context: context,
                         icon: Icons.camera_alt,
                         title: 'Capture Video',
+                        page: CameraPage(),
                       ),
                       _buildFeatureCard(
-                        icon: Icons.sign_language,
-                        title: 'ISL Guide',
+                        context: context,
+                        icon: Icons.book,
+                        title: 'Dictionary',
+                        page: DictionaryPage(),
                       ),
                       _buildFeatureCard(
+                        context: context,
                         icon: Icons.people,
                         title: 'Community',
+                        page: DictionaryPPTPage(),
                       ),
                       _buildFeatureCard(
+                        context: context,
                         icon: Icons.group_work,
                         title: 'Community ISL',
+                        page: LangChangePage(),
                       ),
                     ],
                   ),
@@ -149,7 +170,7 @@ class ChinhvartaHomePage extends StatelessWidget {
                       Text(
                         '10000+',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: isDesktop ? 24 : 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -161,7 +182,7 @@ class ChinhvartaHomePage extends StatelessWidget {
                       Text(
                         '5000+',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: isDesktop ? 24 : 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -177,11 +198,21 @@ class ChinhvartaHomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureCard({required IconData icon, required String title}) {
+  Widget _buildFeatureCard({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required Widget page,
+  }) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page),
+          );
+        },
         borderRadius: BorderRadius.circular(15),
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -202,6 +233,47 @@ class ChinhvartaHomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+// Placeholder Pages
+class CameraPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Capture Video')),
+      body: Center(child: Text('Camera Page')),
+    );
+  }
+}
+
+// class DictionaryPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Dictionary')),
+//       body: Center(child: Text('Dictionary Page')),
+//     );
+//   }
+// }
+
+class CommunityPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Community')),
+      body: Center(child: Text('Community Page')),
+    );
+  }
+}
+
+class CommunityISLPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Community ISL')),
+      body: Center(child: Text('Community ISL Page')),
     );
   }
 }
