@@ -1,5 +1,6 @@
 import 'package:chinhavaarta/screens/DictionaryPPTPage.dart';
 import 'package:chinhavaarta/screens/LangChangePage.dart';
+import 'package:chinhavaarta/screens/QuizPage.dart';
 import 'package:chinhavaarta/screens/dictionaty.dart';
 import 'package:flutter/material.dart';
 
@@ -149,8 +150,8 @@ class ChinhvartaHomePage extends StatelessWidget {
                       _buildFeatureCard(
                         context: context,
                         icon: Icons.group_work,
-                        title: 'Community ISL',
-                        page: LangChangePage(),
+                        title: 'Quiz',
+                        page: QuizPage(),
                       ),
                     ],
                   ),
