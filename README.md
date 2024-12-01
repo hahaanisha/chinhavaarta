@@ -31,7 +31,7 @@ Indian Sign Language (ISL) datasets and applications are not as widely used or s
 ---
 
 ## **Video Demonstration**
-[Click to Watch the Demo](#) (Replace `#` with your hosted video link.)
+[Click to Watch the Demo](https://www.youtube.com/watch?v=Qbsd0wOLQYE) (Replace `#` with your hosted video link.)
 
 ---
 
