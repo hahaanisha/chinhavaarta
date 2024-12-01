@@ -2,6 +2,7 @@ import 'package:chinhavaarta/screens/DictionaryPPTPage.dart';
 import 'package:chinhavaarta/screens/LangChangePage.dart';
 import 'package:chinhavaarta/screens/QuizPage.dart';
 import 'package:chinhavaarta/screens/about.dart';
+import 'package:chinhavaarta/screens/cameraPage.dart';
 import 'package:chinhavaarta/screens/community.dart';
 import 'package:chinhavaarta/screens/dictionaty.dart';
 import 'package:chinhavaarta/screens/feedback.dart';
@@ -253,16 +254,16 @@ class ChinhvartaHomePage extends StatelessWidget {
   }
 }
 
-// Placeholder Pages
-class CameraPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Capture Video')),
-      body: Center(child: Text('Camera Page')),
-    );
-  }
-}
+// // Placeholder Pages
+// class CameraPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Capture Video')),
+//       body: Center(child: Text('Camera Page')),
+//     );
+//   }
+// }
 
 // class DictionaryPage extends StatelessWidget {
 //   @override
@@ -274,22 +275,22 @@ class CameraPage extends StatelessWidget {
 //   }
 // }
 
-class CommunityPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Community')),
-      body: Center(child: Text('Community Page')),
-    );
-  }
-}
-
-class CommunityISLPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Community ISL')),
-      body: Center(child: Text('Community ISL Page')),
-    );
-  }
-}
+// class CommunityPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Community')),
+//       body: Center(child: Text('Community Page')),
+//     );
+//   }
+// }
+//
+// class CommunityISLPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Community ISL')),
+//       body: Center(child: Text('Community ISL Page')),
+//     );
+//   }
+// }
