@@ -21,6 +21,8 @@ Indian Sign Language (ISL) datasets and applications are not as widely used or s
 
 ---
 
+<img src="readme images/flow.png" alt="UI" width="700" height ="500">
+
 ## **Key Features**
 1. **Camera Detection**: Detects ISL gestures in real-time.  
 2. **Dictionary**: A curated ISL dictionary with letters and their respective words (sourced from [indiansignlanguage.org](http://indiansignlanguage.org)).  
@@ -28,7 +30,12 @@ Indian Sign Language (ISL) datasets and applications are not as widely used or s
 4. **Interactive Quiz**: Test your knowledge of ISL gestures with real-time feedback.  
 5. **Feedback System**: Contribute gestures and provide feedback via an intuitive feedback page.
 
+- Chinhavaarta UI: 
 <img src="readme images/homepage.png" alt="UI" width="300" height ="500">
+- Dataset collected by us:
+<img src="readme images/dataset.png" alt="UI" width="500" height ="300">
+- Model Results:
+<img src="readme images/model.png" alt="UI" width="300" height ="500">
 
 ---
 
