@@ -1,0 +1,40 @@
+id: send_feedback_email
+namespace: company.team
+inputs:
+  - id: email
+    type: STRING
+  - id: gestureName
+    type: STRING
+  - id: feedback
+    type: STRING
+triggers:
+  - id: feedback_trigger
+    type: io.kestra.plugin.core.http.Trigger
+    method: POST
+    uri: /trigger-feedback  # This is the endpoint you'll use in Flutter to send feedback
+tasks:
+  - id: send_feedback_email
+    type: io.kestra.plugin.notifications.mail.MailSend
+    from: teaminspire2226@gmail.com  # Your email
+    to: "{{ inputs.email }}"  # Recipient's email from Flutter app
+    subject: "Feedback for Gesture: {{ inputs.gestureName }}"
+    htmlTextContent: |
+      <html>
+        <body>
+          <h1>Chinhavarta Feedback</h1>
+          <h2>Gesture Name: {{ inputs.gestureName }}</h2>
+          <p><b>Feedback:</b> {{ inputs.feedback }}</p>
+          <b>Thank you for your contribution!</b><br>
+          <p>Our team will review your gesture soon.</p>
+        </body>
+      </html>
+    plainTextContent: |
+      Feedback for Gesture: {{ inputs.gestureName }}
+      Feedback: {{ inputs.feedback }}
+      Thank you for your contribution! Our team will review your gesture soon.
+    username: teaminspire2226@gmail.com  # Email address for SMTP login
+    password: vvpy yabt krry eyum  # SMTP password for sending email
+    host: smtp.gmail.com  # Gmail SMTP server
+    port: 465  # SSL port for Gmail
+    sessionTimeout: 30000  # Timeout for the session
+    transportStrategy: SMTPS  # Using SMTP over SSL
