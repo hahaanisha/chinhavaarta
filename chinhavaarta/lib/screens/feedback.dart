@@ -1,102 +1,95 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 
 class FeedbackContributionPage extends StatefulWidget {
   @override
-  _FeedbackContributionPageState createState() => _FeedbackContributionPageState();
+  _FeedbackContributionPageState createState() =>
+      _FeedbackContributionPageState();
 }
 
 class _FeedbackContributionPageState extends State<FeedbackContributionPage> {
   final TextEditingController _feedbackController = TextEditingController();
   final TextEditingController _gestureNameController = TextEditingController();
-
-  File? _mediaFile;
-  String? _mediaType;
+  final TextEditingController _emailController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> _pickMedia() async {
-    final ImagePicker picker = ImagePicker();
+  Future<void> sendFeedback(String email, String gestureName, String feedback) async {
+    final url = Uri.parse('http://localhost:8084/api/v1/executions/company.team/send_feedback_email'); // Replace with your Kestra server URL
 
-    // Show a dialog to choose between image, video, or cancel
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Select Media Type'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: Icon(Icons.image),
-                title: Text('Image'),
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
-                  if (pickedFile != null) {
-                    setState(() {
-                      _mediaFile = File(pickedFile.path);
-                      _mediaType = 'image';
-                    });
-                  }
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.video_library),
-                title: Text('Video'),
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  final XFile? pickedFile = await picker.pickVideo(source: ImageSource.gallery);
-                  if (pickedFile != null) {
-                    setState(() {
-                      _mediaFile = File(pickedFile.path);
-                      _mediaType = 'video';
-                    });
-                  }
-                },
-              ),
-            ],
-          ),
+    // Create a multipart request
+    var request = http.MultipartRequest('POST', url);
+
+    // Add fields
+    request.fields['email'] = email;
+    request.fields['gestureName'] = gestureName;
+    request.fields['feedback'] = feedback;
+
+    try {
+      // Send the request
+      var response = await request.send();
+
+      // Handle the response
+      if (response.statusCode == 200) {
+        // Show success dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Feedback Submitted'),
+              content: Text('Thank you for your contribution! Our team will review your gesture soon.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    // Reset the form
+                    _feedbackController.clear();
+                    _gestureNameController.clear();
+                    _emailController.clear();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
         );
-      },
-    );
-  }
-
-  void _submitContribution() {
-    if (_formKey.currentState!.validate()) {
-      // TODO: Implement actual submission logic
-      // This could include:
-      // 1. Upload media file to a server
-      // 2. Send feedback and gesture details
-      // 3. Show a success dialog
-
+      } else {
+        // Handle error
+        print('Failed to submit feedback: ${response.statusCode}');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Error'),
+              content: Text('Something went wrong while submitting your feedback. Please try again later.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      print('Error: $e');
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Contribution Submitted'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.check_circle, color: Colors.green, size: 60),
-                SizedBox(height: 16),
-                Text('Thank you for your contribution!'),
-                Text('Our team will review your gesture soon.'),
-              ],
-            ),
+            title: Text('Success'),
+            content: Text('Thanks for your feedback'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  // Reset form
-                  _feedbackController.clear();
-                  _gestureNameController.clear();
-                  setState(() {
-                    _mediaFile = null;
-                    _mediaType = null;
-                  });
                 },
                 child: Text('OK'),
               ),
@@ -111,7 +104,7 @@ class _FeedbackContributionPageState extends State<FeedbackContributionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contribute to Chinhvarta'),
+        title: Text('Contribute to Chinhavarta'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 1,
@@ -123,6 +116,25 @@ class _FeedbackContributionPageState extends State<FeedbackContributionPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Email Input
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Your Email',
+                  hintText: 'Enter your email address',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty || !RegExp(r"[^@]+@[a-zA-Z]+\.[a-zA-Z]+").hasMatch(value)) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16),
+
               // Gesture Name Input
               TextFormField(
                 controller: _gestureNameController,
@@ -142,58 +154,6 @@ class _FeedbackContributionPageState extends State<FeedbackContributionPage> {
               ),
               SizedBox(height: 16),
 
-              // Media Upload Section
-              Text(
-                'Upload Gesture Media',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              ElevatedButton.icon(
-                onPressed: _pickMedia,
-                icon: Icon(Icons.upload_file),
-                label: Text('Select Image/Video'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-
-              // Display selected media
-              if (_mediaFile != null) ...[
-                SizedBox(height: 16),
-                Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          _mediaType == 'image' ? Icons.image : Icons.video_library,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          _mediaType == 'image'
-                              ? 'Image Selected'
-                              : 'Video Selected',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-
-              SizedBox(height: 16),
-
               // Feedback Input
               TextFormField(
                 controller: _feedbackController,
@@ -211,7 +171,14 @@ class _FeedbackContributionPageState extends State<FeedbackContributionPage> {
 
               // Submit Button
               ElevatedButton(
-                onPressed: _submitContribution,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    String email = _emailController.text;
+                    String gestureName = _gestureNameController.text;
+                    String feedback = _feedbackController.text;
+                    sendFeedback(email, gestureName, feedback);
+                  }
+                },
                 child: Text('Submit Contribution'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
@@ -233,6 +200,7 @@ class _FeedbackContributionPageState extends State<FeedbackContributionPage> {
   void dispose() {
     _feedbackController.dispose();
     _gestureNameController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 }

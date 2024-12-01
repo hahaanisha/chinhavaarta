@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../services/formData.dart';
+
 class QuizPage extends StatefulWidget {
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -95,8 +97,13 @@ class _QuizPageState extends State<QuizPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chinhvarta',style: TextStyle( color: Colors.black,
-          fontWeight: FontWeight.bold,),),
+        title: Text(
+          'Chinhvarta',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -140,7 +147,10 @@ class _QuizPageState extends State<QuizPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: isAnswered ? Colors.blue : Colors.green,
               ),
-              child: Text(isAnswered ? "Next" : "Submit",style: TextStyle(color: Colors.white),),
+              child: Text(
+                isAnswered ? "Next" : "Submit",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -154,8 +164,7 @@ class _QuizPageState extends State<QuizPage> {
     if (isAnswered) {
       String correctOption = selectedQuestions[currentQuestionIndex]["correct_option"]!;
       if (option == selectedOption) {
-        backgroundColor =
-        option == correctOption ? Colors.green : Colors.red;
+        backgroundColor = option == correctOption ? Colors.green : Colors.red;
       }
     }
 
@@ -188,10 +197,17 @@ class _QuizPageState extends State<QuizPage> {
   }
 }
 
-class ResultPage extends StatelessWidget {
+class ResultPage extends StatefulWidget {
   final int score;
 
   ResultPage({required this.score});
+
+  @override
+  _ResultPageState createState() => _ResultPageState();
+}
+
+class _ResultPageState extends State<ResultPage> {
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -207,15 +223,32 @@ class ResultPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Your score: $score / 5',
+              'Your score: ${widget.score} / 5',
               style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: "Enter your email",
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                String email = emailController.text;
+                if (email.isNotEmpty) {
+                  sendQuizResults(email, widget.score);
+                  Navigator.pop(context); // Replace with actual user data
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Please enter a valid email.")),
+                  );
+                }
               },
-              child: Text("Restart Quiz"),
+              child: Text("Resume Chinhavarta"),
             ),
           ],
         ),
