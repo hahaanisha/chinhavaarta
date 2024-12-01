@@ -1,5 +1,5 @@
 # Chinhavarta - Where Signs Speak Louder than Words
-<img src="logo.png" alt="Logo" width="200" />
+<img src="readme images/logo.png" alt="Logo" width="200" />
 Chinhavarta is an innovative mobile application designed to bridge the communication gap for people with hearing impairments by enabling seamless interaction using Indian Sign Language (ISL). The app focuses on providing an accessible platform for users to learn, practice, and understand ISL gestures.
 
 ---
@@ -28,10 +28,12 @@ Indian Sign Language (ISL) datasets and applications are not as widely used or s
 4. **Interactive Quiz**: Test your knowledge of ISL gestures with real-time feedback.  
 5. **Feedback System**: Contribute gestures and provide feedback via an intuitive feedback page.
 
+<img src="readme images/homepage.png" alt="UI" width="300" height ="500">
+
 ---
 
 ## **Video Demonstration**
-[Click to Watch the Demo](https://www.youtube.com/watch?v=Qbsd0wOLQYE) (Replace `#` with your hosted video link.)
+[Click to Watch the Demo](https://www.youtube.com/watch?v=Qbsd0wOLQYE)
 
 ---
 
@@ -39,29 +41,24 @@ Indian Sign Language (ISL) datasets and applications are not as widely used or s
 
 ### **Successful Mail Notifications**
 Below are examples of emails successfully sent after quiz attempts and feedback submissions:
+   <img src="readme images/quiz.jpeg" alt="UI" width = "500" height = "300">
 
-1. **Quiz Score Notification:**
-    ![Quiz Email](screenshots/quiz_email_success.png)
-
-2. **Feedback Acknowledgment:**
-    ![Feedback Email](screenshots/feedback_email_success.png)
-
+ <img src="readme images/feedback.jpeg" alt="UI" width = "500" height = "300">
 ---
 
 ### **Failed Attempts**
 The following section captures failed attempts in Kestra, along with a brief explanation of the issue:
 
-1. **Failed to Trigger Feedback Task:**
-    - **Screenshot**: ![Trigger Failure](screenshots/trigger_failure.png)
-    - **Reason**: Incorrect input mapping for `feedback`.
+1. **Using Kestra for Model Training**
+    - <img src="readme images/samplekestra.jpeg" alt="UI" width = "500" height = "300">
+    - We tried using kestra to continously train the model with the images recieved thus automating the training process, but we faced some errors there`.
+    - We also tried to integrate Kestra in the deployment phase
+      
+**Our Main aim was to use kestra as our backbone for backend**
 
-2. **SMTP Connection Error:**
-    - **Screenshot**: ![SMTP Error](screenshots/smtp_error.png)
-    - **Reason**: Invalid SMTP credentials used during testing.
-
-3. **Endpoint Misconfiguration:**
-    - **Screenshot**: ![Endpoint Failure](screenshots/endpoint_failure.png)
-    - **Reason**: Misconfigured `/trigger-feedback` URI during setup.
+2. **Extra attempts**
+    -  <img src="readme images/samplekestra1.jpeg" alt="UI" width = "500" height = "300">
+    - While exploring the amazing plugins of kestra, we developed a custom workflow which automates the process of sending POST requests
 
 ---
 
@@ -80,23 +77,9 @@ Kestra automates backend processes using predefined plugins. Here's how we used 
 - Kestra triggers the task and sends an email with the required details.
 
 **Screenshot of Workflow Setup**:  
-![Kestra Workflow](screenshots/kestra_workflow.png)
-
----
-
-## **How to Use**
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-repo/chinhavarta.git
-    cd chinhavarta
-    ```
-2. Configure SMTP credentials for email notifications:
-   - Update `username` and `password` in the Kestra workflow files.
-3. Launch the app and explore features:
-   - Gesture detection
-   - ISL dictionary
-   - Community connections
-   - Quiz and feedback sections
+ - <img src="readme images/feedback_workflow.jpeg" alt="UI" width = "500" height = "300">
+ - <img src="readme images/quiz_workflow.jpeg" alt="UI" width = "500" height = "300">
+ - <img src="readme images/dashboard.jpeg" alt="UI" width = "500" height = "300">
 
 ---
 
