@@ -33,7 +33,7 @@ tasks:
       Feedback: {{ inputs.feedback }}
       Thank you for your contribution! Our team will review your gesture soon.
     username: teaminspire2226@gmail.com  # Email address for SMTP login
-    password: vvpy yabt krry eyum  # SMTP password for sending email
+    password: "{{ secret('EMAIL_PASSWORD') }}"  # SMTP password for sending email
     host: smtp.gmail.com  # Gmail SMTP server
     port: 465  # SSL port for Gmail
     sessionTimeout: 30000  # Timeout for the session
