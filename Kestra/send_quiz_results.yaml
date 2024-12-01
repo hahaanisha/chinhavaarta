@@ -1,0 +1,35 @@
+id: send_quiz_results
+namespace: company.team
+inputs:
+  - id: email
+    type: STRING
+  - id: score
+    type: INT
+triggers:
+  - id: quiz_trigger
+    type: io.kestra.plugin.core.http.Trigger
+    method: POST
+    uri: /trigger-quiz  # This is the endpoint you'll use
+tasks:
+  - id: send_quiz_score_email
+    type: io.kestra.plugin.notifications.mail.MailSend
+    from: teaminspire2226@gmail.com
+    to: "{{ inputs.email }}"
+    subject: "Your Quiz Score: {{ inputs.score }}"
+    htmlTextContent: |
+      <html>
+        <body>
+          <h1>Chinhavarta</h1>
+          <h2>Quiz Results</h2>
+          <p>Your score for the quiz is: <strong>{{ inputs.score }}</strong></p>
+          <b>Happy Learning<br>Thankyou</b>
+        </body>
+      </html>
+    plainTextContent: |
+      Your score for the quiz is: {{ inputs.score }}
+    username: teaminspire2226@gmail.com
+    password: "{{ secret('EMAIL_PASSWORD') }}"
+    host: smtp.gmail.com  # Updated to Gmail's SMTP server
+    port: 465
+    sessionTimeout: 30000
+    transportStrategy: SMTPS
