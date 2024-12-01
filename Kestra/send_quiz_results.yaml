@@ -28,7 +28,7 @@ tasks:
     plainTextContent: |
       Your score for the quiz is: {{ inputs.score }}
     username: teaminspire2226@gmail.com
-    password: vvpy yabt krry eyum
+    password: "{{ secret('EMAIL_PASSWORD') }}"
     host: smtp.gmail.com  # Updated to Gmail's SMTP server
     port: 465
     sessionTimeout: 30000
