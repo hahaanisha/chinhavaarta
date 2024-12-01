@@ -50,7 +50,7 @@ Below are examples of emails successfully sent after quiz attempts and feedback 
 The following section captures failed attempts in Kestra, along with a brief explanation of the issue:
 
 1. **Using Kestra for Model Training**
-    - <img src="readme images/samplekestra.jpeg" alt="UI" width = "500" height = "300">
+     <img src="readme images/samplekestra.jpeg" alt="UI" width = "500" height = "300">
     - We tried using kestra to continously train the model with the images recieved thus automating the training process, but we faced some errors there`.
     - We also tried to integrate Kestra in the deployment phase
       
