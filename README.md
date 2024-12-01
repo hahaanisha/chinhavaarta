@@ -1,5 +1,5 @@
 # Chinhavarta - Where Signs Speak Louder than Words
-<img src="logo.png" alt="Logo" width="200" />
+<img src="readme images/logo.png" alt="Logo" width="200" />
 Chinhavarta is an innovative mobile application designed to bridge the communication gap for people with hearing impairments by enabling seamless interaction using Indian Sign Language (ISL). The app focuses on providing an accessible platform for users to learn, practice, and understand ISL gestures.
 
 ---
@@ -28,6 +28,8 @@ Indian Sign Language (ISL) datasets and applications are not as widely used or s
 4. **Interactive Quiz**: Test your knowledge of ISL gestures with real-time feedback.  
 5. **Feedback System**: Contribute gestures and provide feedback via an intuitive feedback page.
 
+<img src="readme images/homepage.png" alt="UI" width="300" height ="500">
+
 ---
 
 ## **Video Demonstration**
@@ -39,13 +41,9 @@ Indian Sign Language (ISL) datasets and applications are not as widely used or s
 
 ### **Successful Mail Notifications**
 Below are examples of emails successfully sent after quiz attempts and feedback submissions:
+   <img src="readme images/quiz.jpeg" alt="UI" width = "500" height = "300">
 
-1. **Quiz Score Notification:**
-    ![Quiz Email](screenshots/quiz_email_success.png)
-
-2. **Feedback Acknowledgment:**
-    ![Feedback Email](screenshots/feedback_email_success.png)
-
+ <img src="readme images/feedback.jpeg" alt="UI" width = "500" height = "300">
 ---
 
 ### **Failed Attempts**
