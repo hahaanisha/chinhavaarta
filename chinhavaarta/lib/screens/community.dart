@@ -38,7 +38,6 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
       'image': 'assets/images/nakoda.png',
       'location': 'https://maps.app.goo.gl/gaKmBApLQBYdDDbx7',
     },
-
     {
       'name': 'Kamalini Karnabadhir High School',
       'image': 'assets/images/kamalini.jpg',
@@ -74,10 +73,28 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Community Organizations'),
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context); // Navigate back
+          },
+        ),
+        title: Text(
+          'Chinhvarta',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
+          labelColor: Colors.black,
+          indicatorColor: Colors.blue,
           tabs: organizations.map((org) {
             return Tab(
               text: org['name'],

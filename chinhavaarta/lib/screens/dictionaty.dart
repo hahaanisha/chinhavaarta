@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
+import 'LetterDetailPage.dart';
+
 class DictionaryPage extends StatelessWidget {
+  // Generate a list of letters A-Z
+  final List<String> letters = List.generate(26, (index) => String.fromCharCode('A'.codeUnitAt(0) + index));
+
   @override
   Widget build(BuildContext context) {
     // Determine the screen width
     final screenWidth = MediaQuery.of(context).size.width;
 
     // Determine the number of items in a row based on the screen width
-    int crossAxisCount = 4; // Default for mobile
+    int crossAxisCount = 5; // Default for mobile
     if (screenWidth > 600) {
-      crossAxisCount = 6; // For tablets
+      crossAxisCount = 7; // For tablets
     }
     if (screenWidth > 900) {
-      crossAxisCount = 8; // For desktops
+      crossAxisCount = 9; // For desktops
     }
 
     return Scaffold(
@@ -26,7 +31,7 @@ class DictionaryPage extends StatelessWidget {
           },
         ),
         title: Text(
-          'Chinhvarta',
+          'Chinhvarta Dictionary',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -35,89 +40,83 @@ class DictionaryPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          // Search Bar
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.grey[200],
-              ),
-            ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            childAspectRatio: 1, // Make items square
           ),
-          // Grid View of Items
-          Expanded(
-            child: GridView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount, // Dynamic count based on screen size
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                childAspectRatio: 0.8,
-              ),
-              itemCount: 24, // Number of items
-              itemBuilder: (context, index) {
-                return _buildGridItem();
-              },
-            ),
-          ),
-          // "See More" Button
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // Handle "See More" action
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                minimumSize: Size(double.infinity, 50), // Full-width button
-              ),
-              child: Text('See More'),
-            ),
-          ),
-        ],
+          itemCount: letters.length,
+          itemBuilder: (context, index) {
+            return _buildLetterTab(context, letters[index]);
+          },
+        ),
       ),
     );
   }
 
-  // Method to Build Each Grid Item
-  Widget _buildGridItem() {
-    return Column(
-      children: [
-        Container(
-          height: 60,
-          width: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.grey[200],
+  // Method to Build Each Letter Tab
+  Widget _buildLetterTab(BuildContext context, String letter) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to the next page with the selected letter
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LetterDetailPage(),
           ),
-          child: Image.asset(
-            'images/Greeting.png', // Replace with actual image path
-            fit: BoxFit.cover,
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blue.shade100,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blue.shade200.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            letter,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue.shade800,
+            ),
           ),
         ),
-        SizedBox(height: 8),
-        Text(
-          'Greetings',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
+
+// A placeholder page for letter details
+// class LetterDetailPage extends StatelessWidget {
+//   final String letter;
+//
+//   const LetterDetailPage({Key? key, required this.letter}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Words starting with $letter'),
+//         backgroundColor: Colors.blue.shade100,
+//       ),
+//       body: Center(
+//         child: Text(
+//           'Content for letter $letter',
+//           style: TextStyle(fontSize: 24),
+//         ),
+//       ),
+//     );
+//   }
+// }

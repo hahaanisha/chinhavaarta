@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'Appreciation.dart'; // Import the WebView page
 
-class DictionaryPPTPage extends StatelessWidget {
+class LetterDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = [
       'Appreciation',
-      'Basics',
-      'Conversations',
-      'Directions',
-      'Excuses',
-      'Feelings',
-      'Greetings',
-      'Happiness'
+      'Acceptance',
+      'Achievement',
+      'Adventure',
+      'Ambition',
+      'Adaptability',
+      'Aspiration',
+      'Authenticity'
     ];
 
     return Scaffold(
@@ -62,6 +63,14 @@ class DictionaryPPTPage extends StatelessWidget {
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
                     // Navigate to corresponding category
+                    if (categories[index].toLowerCase() == 'appreciation') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Appreciation(),
+                        ),
+                      );
+                    }
                   },
                 );
               },

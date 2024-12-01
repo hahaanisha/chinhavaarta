@@ -1,4 +1,4 @@
-import 'package:chinhavaarta/screens/DictionaryPPTPage.dart';
+import 'package:chinhavaarta/screens/LetterDetailPage.dart';
 import 'package:chinhavaarta/screens/LangChangePage.dart';
 import 'package:chinhavaarta/screens/QuizPage.dart';
 import 'package:chinhavaarta/screens/about.dart';
@@ -6,6 +6,7 @@ import 'package:chinhavaarta/screens/cameraPage.dart';
 import 'package:chinhavaarta/screens/community.dart';
 import 'package:chinhavaarta/screens/dictionaty.dart';
 import 'package:chinhavaarta/screens/feedback.dart';
+import 'package:chinhavaarta/screens/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class ChinhvartaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ChinhvartaHomePage(),
+      home: SplashScreen(),
     );
   }
 }
