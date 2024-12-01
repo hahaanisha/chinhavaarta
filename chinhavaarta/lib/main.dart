@@ -1,7 +1,10 @@
 import 'package:chinhavaarta/screens/DictionaryPPTPage.dart';
 import 'package:chinhavaarta/screens/LangChangePage.dart';
 import 'package:chinhavaarta/screens/QuizPage.dart';
+import 'package:chinhavaarta/screens/about.dart';
+import 'package:chinhavaarta/screens/community.dart';
 import 'package:chinhavaarta/screens/dictionaty.dart';
+import 'package:chinhavaarta/screens/feedback.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -145,13 +148,25 @@ class ChinhvartaHomePage extends StatelessWidget {
                         context: context,
                         icon: Icons.people,
                         title: 'Community',
-                        page: DictionaryPPTPage(),
+                        page: Community(),
                       ),
                       _buildFeatureCard(
                         context: context,
                         icon: Icons.group_work,
                         title: 'Quiz',
                         page: QuizPage(),
+                      ),
+                      _buildFeatureCard(
+                        context: context,
+                        icon: Icons.feedback,  // Feedback icon
+                        title: 'Feedback',
+                        page: FeedbackContributionPage(),  // The page we previously created
+                      ),
+                      _buildFeatureCard(
+                        context: context,
+                        icon: Icons.info_outline,  // About Us icon
+                        title: 'About Us',
+                        page: AboutUsPage(),  // New page to be created
                       ),
                     ],
                   ),

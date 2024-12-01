@@ -38,6 +38,12 @@ dependencies:
   intl: ^0.20.1
   http: ^1.2.2
   csv: ^6.0.0
+  google_maps_flutter: ^2.10.0
+  geolocator: ^13.0.2
+  url_launcher: ^6.3.1
+  webview_flutter: ^4.8.0
+  image_picker: ^1.1.2
+  file_picker: ^8.1.4
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +73,11 @@ flutter:
     - assets/isl_signs/
     - assets/isl_quiz_dataset.csv
     - assets/images/Greeting.png
+    - assets/images/pragati.png
+    - assets/images/Stephen.png
+    - assets/images/nakoda.png
+    - assets/images/kamalini.jpg
+    - assets/images/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
